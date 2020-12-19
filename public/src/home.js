@@ -21,6 +21,10 @@ function booksBorrowedCount(books) {
 /* Object structure -> {
   name: count
 }*/
+function sortArray(array) {
+  return array.sort((element1, element2) => (element1.count > element2.count ? -1 : 1)).slice(0, 5);
+};
+
 function getMostCommonGenres(books) {
   let genreList = books.map((book) => book.genre);
   let countedGenres = genreList.reduce((allGenres, genre) => {
@@ -40,9 +44,7 @@ function getMostCommonGenres(books) {
     });
   }
 
-  return genreData
-    .sort((genre1, genre2) => (genre1.count > genre2.count ? -1 : 1))
-    .slice(0, 5);
+  return sortArray(genreData);
 }
 
 // Returns an array contained five objects or less that represents the most
@@ -54,9 +56,7 @@ function getMostPopularBooks(books) {
     name: book.title,
     count: book.borrows.length,
   }));
-  return borrowed
-    .sort((book1, book2) => (book1.count > book2.count ? -1 : 1))
-    .slice(0, 5);
+  return sortArray(borrowed);
 }
 
 // Returns an array containing 5 objects or less that represents the most
@@ -80,8 +80,7 @@ function getMostPopularAuthors(books, authors) {
     authorBorrows.push(authorObj);
   }
 
-  authorBorrows.sort((author1, author2) => author1.count > author2.count ? -1 : 1);
-  return authorBorrows.slice(0, 5);
+  return sortArray(authorBorrows);
 }
 module.exports = {
   totalBooksCount,
@@ -90,4 +89,5 @@ module.exports = {
   getMostCommonGenres,
   getMostPopularBooks,
   getMostPopularAuthors,
+  sortArray
 };
